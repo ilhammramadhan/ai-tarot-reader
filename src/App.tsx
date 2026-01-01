@@ -3,18 +3,21 @@ import { Header } from "@/components/Header";
 import { QuestionInput } from "@/components/QuestionInput";
 import { CardSpread } from "@/components/CardSpread";
 import { ReadingResult } from "@/components/ReadingResult";
+import { LoadingAnimation } from "@/components/LoadingAnimation";
 import { getRandomCards, type TarotCard } from "@/data/tarotCards";
-import { useGemini } from "@/hooks/useGemini";
+import { useGemini, type StructuredReading } from "@/hooks/useGemini";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { Sparkles } from "lucide-react";
 
-type AppState = "idle" | "drawing" | "revealing" | "reading";
+type AppState = "idle" | "drawing" | "revealing" | "loading" | "reading";
 
 function App() {
   const [state, setState] = useState<AppState>("idle");
   const [question, setQuestion] = useState("");
   const [cards, setCards] = useState<TarotCard[]>([]);
-  const [reading, setReading] = useState("");
+  const [reading, setReading] = useState<StructuredReading | null>(null);
   const { generateReading, isLoading } = useGemini();
+  const { t, language } = useLanguage();
 
   const handleSubmit = async (userQuestion: string) => {
     setQuestion(userQuestion);
@@ -30,12 +33,16 @@ function App() {
     }, 500);
 
     // Generate reading from Gemini
-    const generatedReading = await generateReading(userQuestion, drawnCards);
+    const generatedReading = await generateReading(userQuestion, drawnCards, language);
     setReading(generatedReading);
 
-    // Wait for cards to reveal, then show reading
+    // Wait for cards to reveal, then show loading briefly, then reading
     setTimeout(() => {
-      setState("reading");
+      if (generatedReading) {
+        setState("reading");
+      } else {
+        setState("loading");
+      }
     }, 2000);
   };
 
@@ -43,7 +50,7 @@ function App() {
     setState("idle");
     setQuestion("");
     setCards([]);
-    setReading("");
+    setReading(null);
   };
 
   return (
@@ -73,12 +80,10 @@ function App() {
                 </div>
               </div>
               <h2 className="font-heading text-2xl sm:text-3xl text-foreground">
-                Discover Your Path
+                {t("intro.title")}
               </h2>
               <p className="text-muted-foreground font-mystical text-lg">
-                The ancient wisdom of the tarot awaits. Ask your question and
-                let the cards reveal what lies in your past, present, and
-                future.
+                {t("intro.description")}
               </p>
             </div>
 
@@ -90,25 +95,28 @@ function App() {
           </div>
         )}
 
-        {(state === "drawing" || state === "revealing" || state === "reading") && (
+        {(state === "drawing" || state === "revealing" || state === "loading" || state === "reading") && (
           <div className="flex flex-col items-center gap-8">
             <CardSpread
               cards={cards}
-              isRevealed={state === "revealing" || state === "reading"}
+              isRevealed={state === "revealing" || state === "loading" || state === "reading"}
             />
 
             {state === "reading" && reading && (
               <ReadingResult
                 reading={reading}
                 question={question}
+                cards={cards}
                 onNewReading={handleNewReading}
               />
             )}
 
-            {(state === "drawing" || state === "revealing") && !reading && (
-              <p className="text-muted-foreground font-mystical text-lg animate-pulse">
-                The spirits are interpreting the cards...
-              </p>
+            {(state === "drawing" || state === "revealing" || state === "loading") && !reading && (
+              <LoadingAnimation />
+            )}
+
+            {(state === "revealing" || state === "loading") && reading && !reading.synthesis && (
+              <LoadingAnimation />
             )}
           </div>
         )}
@@ -117,7 +125,7 @@ function App() {
       {/* Footer */}
       <footer className="py-4 text-center">
         <p className="text-xs text-muted-foreground">
-          Built with React + shadcn/ui + Gemini AI
+          {t("footer.text")}
         </p>
       </footer>
     </div>
