@@ -8,6 +8,7 @@ import { getRandomCards, type TarotCard } from "@/data/tarotCards";
 import { useGemini, type StructuredReading } from "@/hooks/useGemini";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Sparkles } from "lucide-react";
+import type { ReadingTopic } from "@/components/TopicSelector";
 
 type AppState = "idle" | "drawing" | "revealing" | "loading" | "reading";
 
@@ -19,7 +20,7 @@ function App() {
   const { generateReading, isLoading } = useGemini();
   const { t, language } = useLanguage();
 
-  const handleSubmit = async (userQuestion: string) => {
+  const handleSubmit = async (userQuestion: string, topic: ReadingTopic) => {
     setQuestion(userQuestion);
     setState("drawing");
 
@@ -33,7 +34,7 @@ function App() {
     }, 500);
 
     // Generate reading from Gemini
-    const generatedReading = await generateReading(userQuestion, drawnCards, language);
+    const generatedReading = await generateReading(userQuestion, drawnCards, language, topic);
     setReading(generatedReading);
 
     // Wait for cards to reveal, then show loading briefly, then reading

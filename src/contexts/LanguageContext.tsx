@@ -15,6 +15,12 @@ const translations = {
     // Intro
     "intro.title": "Discover Your Path",
     "intro.description": "The ancient wisdom of the tarot awaits. Ask your question and let the cards reveal what lies in your past, present, and future.",
+    // Topic selector
+    "topic.label": "What guidance do you seek?",
+    "topic.love": "Love",
+    "topic.career": "Career",
+    "topic.life": "Life",
+    "topic.spiritual": "Spiritual",
     // Input
     "input.placeholder": "What question weighs upon your heart?",
     "input.button": "Draw the Cards",
@@ -46,6 +52,12 @@ const translations = {
     // Intro
     "intro.title": "Temukan Jalanmu",
     "intro.description": "Kebijaksanaan kuno tarot menunggumu. Ajukan pertanyaanmu dan biarkan kartu mengungkap apa yang ada di masa lalu, sekarang, dan masa depanmu.",
+    // Topic selector
+    "topic.label": "Panduan apa yang kamu cari?",
+    "topic.love": "Cinta",
+    "topic.career": "Karir",
+    "topic.life": "Kehidupan",
+    "topic.spiritual": "Spiritual",
     // Input
     "input.placeholder": "Pertanyaan apa yang membebani hatimu?",
     "input.button": "Tarik Kartu",
