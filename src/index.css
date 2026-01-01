@@ -1,0 +1,246 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-serif: "Cinzel", serif;
+  --font-mystical: "Cormorant", serif;
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-gold: var(--gold);
+  --color-gold-light: var(--gold-light);
+  --color-violet: var(--violet);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+}
+
+/* Mystical Dark Theme (Default) */
+:root {
+  --radius: 0.75rem;
+
+  /* Deep purple-black background */
+  --background: #0f0a1a;
+  --foreground: #f5f5f5;
+
+  /* Glassmorphism card */
+  --card: rgba(139, 92, 246, 0.08);
+  --card-foreground: #f5f5f5;
+
+  --popover: #1a1025;
+  --popover-foreground: #f5f5f5;
+
+  /* Mystic Gold primary */
+  --primary: #D4AF37;
+  --primary-foreground: #0f0a1a;
+
+  /* Soft Lavender secondary */
+  --secondary: rgba(167, 139, 250, 0.2);
+  --secondary-foreground: #A78BFA;
+
+  /* Muted purple */
+  --muted: rgba(139, 125, 181, 0.15);
+  --muted-foreground: #8B7DB5;
+
+  /* Accent - Deep Magenta */
+  --accent: rgba(174, 42, 95, 0.2);
+  --accent-foreground: #ae2a5f;
+
+  --destructive: #ef4444;
+
+  /* Gold-tinted border */
+  --border: rgba(212, 175, 55, 0.2);
+  --input: rgba(212, 175, 55, 0.15);
+  --ring: #D4AF37;
+
+  /* Custom colors */
+  --gold: #D4AF37;
+  --gold-light: #E9D188;
+  --violet: #A78BFA;
+
+  /* Charts - mystical palette */
+  --chart-1: #D4AF37;
+  --chart-2: #A78BFA;
+  --chart-3: #ae2a5f;
+  --chart-4: #8B7DB5;
+  --chart-5: #E9D188;
+}
+
+/* Light Mystical Theme */
+.light {
+  --background: #faf8ff;
+  --foreground: #1a1025;
+
+  --card: rgba(139, 92, 246, 0.05);
+  --card-foreground: #1a1025;
+
+  --popover: #ffffff;
+  --popover-foreground: #1a1025;
+
+  --primary: #9D7B1C;
+  --primary-foreground: #ffffff;
+
+  --secondary: rgba(139, 92, 246, 0.1);
+  --secondary-foreground: #6D28D9;
+
+  --muted: rgba(139, 92, 246, 0.08);
+  --muted-foreground: #6B7280;
+
+  --accent: rgba(174, 42, 95, 0.1);
+  --accent-foreground: #9D174D;
+
+  --destructive: #dc2626;
+
+  --border: rgba(139, 92, 246, 0.2);
+  --input: rgba(139, 92, 246, 0.1);
+  --ring: #9D7B1C;
+
+  --gold: #9D7B1C;
+  --gold-light: #B8941F;
+  --violet: #6D28D9;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: "Inter", system-ui, sans-serif;
+  }
+}
+
+/* Custom utilities for mystical effects */
+@layer utilities {
+  .font-mystical {
+    font-family: "Cormorant", serif;
+  }
+
+  .font-heading {
+    font-family: "Cinzel", serif;
+  }
+
+  .text-gold {
+    color: var(--gold);
+  }
+
+  .text-gold-light {
+    color: var(--gold-light);
+  }
+
+  .glow-gold {
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+  }
+
+  .glow-gold-sm {
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+  }
+
+  .glow-violet {
+    box-shadow: 0 0 20px rgba(167, 139, 250, 0.3);
+  }
+
+  .glass {
+    background: rgba(139, 92, 246, 0.08);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+  }
+
+  .glass-card {
+    background: rgba(139, 92, 246, 0.08);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(212, 175, 55, 0.15);
+    border-radius: var(--radius-lg);
+  }
+}
+
+/* Card flip animation */
+.perspective {
+  perspective: 1000px;
+}
+
+.card-flip {
+  transform-style: preserve-3d;
+  transition: transform 0.6s ease-out;
+}
+
+.card-flip.flipped {
+  transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+  backface-visibility: hidden;
+  position: absolute;
+  inset: 0;
+}
+
+.card-back {
+  transform: rotateY(180deg);
+}
+
+/* Twinkling stars animation */
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+.animate-twinkle {
+  animation: twinkle 3s ease-in-out infinite;
+}
+
+/* Fade in animation */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out forwards;
+}
+
+/* Staggered animation delays */
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .card-flip {
+    transition: none;
+  }
+  .animate-twinkle,
+  .animate-fade-in {
+    animation: none;
+  }
+}
