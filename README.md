@@ -21,6 +21,17 @@ An AI-powered tarot card reading web application with mystical dark theme and 3-
 - **Responsive Design** - Works on all devices
 - **Copy Reading** - Share your reading with others
 
+## Screenshots
+
+### Home Screen
+![Home Screen](./screenshot-home.png)
+
+### Cards Revealed
+![Cards Revealed](./screenshot-cards.png)
+
+### Reading Result
+![Reading Result](./screenshot-reading.png)
+
 ## Demo
 
 1. Select your topic (Love, Career, Life, or Spiritual)
